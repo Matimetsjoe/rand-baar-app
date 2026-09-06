@@ -56,14 +56,8 @@ create policy "anyone_can_create_order"
   on orders for insert
   with check (true);
 
--- Personal näeb ainult oma hotelli tellimusi (KDS-i jaoks).
-create policy "staff_sees_own_property_orders"
-  on orders for select
-  using (
-    property_id in (
-      select property_id from staff_users where auth_user_id = auth.uid()
-    )
-  );
+-- MÄRKUS: "staff_sees_own_property_orders" (SELECT policy) on juba
+-- loodud 0001_init.sql failis, seega seda siin uuesti ei looda.
 
 -- Personal saab muuta staatust (new -> preparing -> ready -> delivered)
 -- ainult oma hotelli tellimustel.
